@@ -3,15 +3,28 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pycountry
+import os
+
+
+# Ajustar path de busca de demais arquivos relacionados ao dashboard
+try:
+    # Tenta usar o __file__ (funciona no VS Code / Streamlit)
+    path_app = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+    # Se der erro, usa o diretório atual (funciona no Colab)
+    path_app = os.getcwd()
+
 
 # Configuração da página com Streamlit
 st.set_page_config(
-    page_title="Análise de Vendas", 
+    page_title="Análise de Profissionais de Dados",
     page_icon="📊",
     layout="wide"  # Página ocupando a largura inteira disponível
 )
 
-df = pd.read_csv('dados-imersao-final.csv')
+# Carregar o dataset do path exato
+caminho_arquivo = os.path.join(path_app, 'dados-imersao-final.csv')
+df = pd.read_csv(caminho_arquivo)
 
 # Barra lateral de filtros
 st.sidebar.header("Filtros")
